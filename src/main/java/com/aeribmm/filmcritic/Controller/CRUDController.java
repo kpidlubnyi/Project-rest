@@ -6,13 +6,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
 public class CRUDController {
 
     @GetMapping("")
-    public String home(){
-        return "TEST";
+    public Map<String, String> hello() {
+        return Map.of("message", "Hello, Swagger!");
     }
 }

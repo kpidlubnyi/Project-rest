@@ -24,13 +24,13 @@ public class UserService {
     }
 
     public UserDTO convertToDTO(User user) {
-        return new UserDTO(user.getId(),user.getUsername(),user.getEmail());
+        return new UserDTO(user.getId(),user.getName(),user.getEmail());
     }
 
     public void createUser(User user) {
         User newUser = new User();
         System.out.println("old value: " + newUser);
-        newUser.setUsername(user.getUsername());
+        newUser.setUsername(user.getName());
         newUser.setEmail(user.getEmail());
         newUser.setPassword(user.getPassword());
         //todo change password giving to object
