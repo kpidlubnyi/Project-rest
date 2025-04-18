@@ -4,6 +4,7 @@ import com.aeribmm.filmcritic.Aunth.AuthenticationRequest;
 import com.aeribmm.filmcritic.Aunth.AuthenticationResponse;
 import com.aeribmm.filmcritic.Aunth.RegisterRequest;
 import com.aeribmm.filmcritic.Service.AuthenticationService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("auth")
+@SecurityRequirement(name = "bearerAuth")
 public class AuthenticationController {
     private final AuthenticationService service;
 

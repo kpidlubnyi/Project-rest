@@ -36,7 +36,6 @@ public class UserService {
         //todo change password giving to object
         System.out.println("new value: " + newUser);
         repository.save(user);
-
     }
 
     public List<User> getAll() {
@@ -44,6 +43,6 @@ public class UserService {
     }
 
     public void deleteById(Integer id) {
-       repository.deleteById(id);
+        repository.deleteById(id);
     }
 }

@@ -4,11 +4,14 @@ import com.aeribmm.filmcritic.Aunth.AuthenticationRequest;
 import com.aeribmm.filmcritic.Aunth.AuthenticationResponse;
 import com.aeribmm.filmcritic.Aunth.RegisterRequest;
 import com.aeribmm.filmcritic.DAO.UserRepository;
+import com.aeribmm.filmcritic.Exception.UserAlreadyExistsException;
 import com.aeribmm.filmcritic.Model.User;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class AuthenticationService {
@@ -24,14 +27,18 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse register(RegisterRequest request) {
-        var user = User.builder()
+        Optional<User> user = repo.findByEmail(request.getEmail());
+        if(user.isPresent()) {
+            throw new UserAlreadyExistsException();
+        }
+        var user1 = User.builder()
                 .username(request.getFirstName() + " " + request.getLastName())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .build();
-        System.out.println("name: " + user.getName() + " email " + user.getEmail() + " password: " + user.getPassword());
-        repo.createUser(user.getName(), user.getEmail(), user.getPassword());
-        var jwtToken = jwtService.generateToken(user);
+        System.out.println("name: " + user1.getName() + " email " + user1.getEmail() + " password: " + user1.getPassword());
+        repo.createUser(user1.getName(), user1.getEmail(), user1.getPassword());
+        var jwtToken = jwtService.generateToken(user1);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
