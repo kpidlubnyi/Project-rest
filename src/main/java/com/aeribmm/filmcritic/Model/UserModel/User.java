@@ -1,15 +1,12 @@
-package com.aeribmm.filmcritic.Model;
+package com.aeribmm.filmcritic.Model.UserModel;
 
 
-import com.aeribmm.filmcritic.Aunth.AuthenticationResponse;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.stereotype.Repository;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 @Entity
 @Table(name = "users")

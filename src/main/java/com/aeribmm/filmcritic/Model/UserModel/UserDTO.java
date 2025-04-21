@@ -1,4 +1,4 @@
-package com.aeribmm.filmcritic.Model;
+package com.aeribmm.filmcritic.Model.UserModel;
 
 public class UserDTO {
 

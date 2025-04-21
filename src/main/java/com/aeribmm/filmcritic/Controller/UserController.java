@@ -1,8 +1,7 @@
 package com.aeribmm.filmcritic.Controller;
 
-import com.aeribmm.filmcritic.Exception.UserNotFoundException;
-import com.aeribmm.filmcritic.Model.User;
-import com.aeribmm.filmcritic.Model.UserDTO;
+import com.aeribmm.filmcritic.Model.UserModel.User;
+import com.aeribmm.filmcritic.Model.UserModel.UserDTO;
 import com.aeribmm.filmcritic.Service.UserService;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -11,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
@@ -22,13 +20,13 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("{id}")//handled
+    @GetMapping("{id}")//status and exception done
     public ResponseEntity<UserDTO> getUser(@PathVariable Integer id){
         User user = userService.getUserById(id);
         return ResponseEntity.ok(userService.convertToDTO(user));//status 200
     }
 
-    @GetMapping("/list")
+    @GetMapping("/list")//status and exception done
     public ResponseEntity<List<User>> getAll(){
         return new ResponseEntity<>(userService.getAll(),HttpStatus.OK);
     }
@@ -38,7 +36,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")//status and exception done
     public ResponseEntity<Void> deleteById(@PathVariable Integer id) {
         User user = userService.getUserById(id);
         if (user != null) {
@@ -47,7 +45,7 @@ public class UserController {
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
-    @PutMapping("/update/{id}")
+    @PutMapping("/update/{id}")//status and exception done
     public ResponseEntity<User> updateUser(@PathVariable Integer id,@RequestBody User updatedUser){
         User existingUser = userService.getUserById(id);
         updatedUser.setId(id);

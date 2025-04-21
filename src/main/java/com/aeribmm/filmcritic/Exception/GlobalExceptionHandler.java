@@ -1,5 +1,7 @@
 package com.aeribmm.filmcritic.Exception;
-import com.aeribmm.filmcritic.Exception.UserAlreadyExistsException;
+import com.aeribmm.filmcritic.Exception.MovieException.MovieNotFoundException;
+import com.aeribmm.filmcritic.Exception.userException.UserAlreadyExistsException;
+import com.aeribmm.filmcritic.Exception.userException.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -15,8 +17,10 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<String> handleUserNotFoundException(UserNotFoundException ex) {
-        System.out.println("User not found in handler");
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
-
+    @ExceptionHandler(MovieNotFoundException.class)
+    public ResponseEntity<String> handleMovieNotFoundException(MovieNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
 }

@@ -1,7 +1,6 @@
 package com.aeribmm.filmcritic.DAO;
 
-import com.aeribmm.filmcritic.Model.Movie;
-import com.aeribmm.filmcritic.Model.User;
+import com.aeribmm.filmcritic.Model.UserModel.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;

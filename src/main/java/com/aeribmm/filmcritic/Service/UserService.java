@@ -1,15 +1,13 @@
 package com.aeribmm.filmcritic.Service;
 
 import com.aeribmm.filmcritic.DAO.UserRepository;
-import com.aeribmm.filmcritic.Exception.UserNotFoundException;
-import com.aeribmm.filmcritic.Model.User;
-import com.aeribmm.filmcritic.Model.UserDTO;
+import com.aeribmm.filmcritic.Exception.userException.UserNotFoundException;
+import com.aeribmm.filmcritic.Model.UserModel.User;
+import com.aeribmm.filmcritic.Model.UserModel.UserDTO;
 //import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
