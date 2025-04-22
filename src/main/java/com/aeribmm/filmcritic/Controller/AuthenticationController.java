@@ -3,7 +3,7 @@ package com.aeribmm.filmcritic.Controller;
 import com.aeribmm.filmcritic.Aunth.AuthenticationRequest;
 import com.aeribmm.filmcritic.Aunth.AuthenticationResponse;
 import com.aeribmm.filmcritic.Aunth.RegisterRequest;
-import com.aeribmm.filmcritic.Service.AuthenticationService;
+import com.aeribmm.filmcritic.Service.JWTTokens.AuthenticationService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

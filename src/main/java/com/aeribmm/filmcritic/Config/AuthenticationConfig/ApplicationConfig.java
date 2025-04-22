@@ -1,4 +1,4 @@
-package com.aeribmm.filmcritic.Config;
+package com.aeribmm.filmcritic.Config.AuthenticationConfig;
 
 import com.aeribmm.filmcritic.DAO.UserRepository;
 import com.aeribmm.filmcritic.Exception.userException.UserNotFoundException;

@@ -1,4 +1,4 @@
-package com.aeribmm.filmcritic.Service;
+package com.aeribmm.filmcritic.Service.JWTTokens;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

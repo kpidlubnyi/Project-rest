@@ -1,6 +1,6 @@
-package com.aeribmm.filmcritic.Config;
+package com.aeribmm.filmcritic.Config.AuthenticationConfig;
 
-import com.aeribmm.filmcritic.Service.JWTService;
+import com.aeribmm.filmcritic.Service.JWTTokens.JWTService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

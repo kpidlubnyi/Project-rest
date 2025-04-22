@@ -1,4 +1,4 @@
-package com.aeribmm.filmcritic.Service;
+package com.aeribmm.filmcritic.Service.JWTTokens;
 
 import com.aeribmm.filmcritic.Aunth.AuthenticationRequest;
 import com.aeribmm.filmcritic.Aunth.AuthenticationResponse;
@@ -51,9 +51,7 @@ public class AuthenticationService {
                         request.getPassword()
                 )
         );
-        System.out.println("email" + request.getEmail());
         var user = repo.findByEmail(request.getEmail()).orElseThrow();
-
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)

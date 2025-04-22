@@ -1,5 +1,6 @@
-package com.aeribmm.filmcritic.Config;
+package com.aeribmm.filmcritic.Config.AuthenticationConfig;
 
+import com.aeribmm.filmcritic.Config.AuthenticationConfig.JwtAuthentificationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
