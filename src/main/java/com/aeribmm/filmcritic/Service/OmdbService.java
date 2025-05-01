@@ -45,6 +45,7 @@ public class OmdbService {
     public MovieResponse getRandomMovie() {
         int maxConcurrentRequests = 10;
         int maxAttempts = 100;
+
         Random random = new Random();
 
         ExecutorService executor = Executors.newFixedThreadPool(maxConcurrentRequests);
@@ -60,6 +61,7 @@ public class OmdbService {
                     try {
                         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
                         JsonNode root = objectMapper.readTree(response.getBody());
+                        JsonNode ratings = root.path("Ratings");
 
                         if ("True".equalsIgnoreCase(root.path("Response").asText())) {
                             return objectMapper.treeToValue(root, MovieResponse.class);

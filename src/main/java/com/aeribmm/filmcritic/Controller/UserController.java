@@ -2,6 +2,7 @@ package com.aeribmm.filmcritic.Controller;
 
 import com.aeribmm.filmcritic.Model.UserModel.User;
 import com.aeribmm.filmcritic.Model.UserModel.UserDTO;
+import com.aeribmm.filmcritic.Model.UserModel.UserProfileDTO;
 import com.aeribmm.filmcritic.Service.UserService;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -53,4 +54,10 @@ public class UserController {
         return ResponseEntity.ok(updatedUser);
     }
     //todo patch
+
+    @GetMapping("/{username}/profile")
+    public ResponseEntity<UserProfileDTO> getProfile(@PathVariable String username){
+        System.out.println(username);
+        return ResponseEntity.ok(userService.getUserProfile(username));
+    }
 }

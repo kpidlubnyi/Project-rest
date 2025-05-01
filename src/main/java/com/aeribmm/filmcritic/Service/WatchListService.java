@@ -25,4 +25,8 @@ public class WatchListService {
         User user = repository.findById(userId).orElseThrow(() -> new UserNotFoundException());
         return watchlistRepository.getWatchlistByUserId(userId);
     }
+
+    public List<WatchList> getAll() {
+        return watchlistRepository.findAll();
+    }
 }

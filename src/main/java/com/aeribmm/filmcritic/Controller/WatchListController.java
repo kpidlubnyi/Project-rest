@@ -26,4 +26,8 @@ public class WatchListController {
     public ResponseEntity<List<WatchList>> getUserWatchlist(@PathVariable Integer userId) {
         return ResponseEntity.ok(watchListService.getWatchlistByUserId(userId));
     }
+    @GetMapping("/getAll")
+    public ResponseEntity<List<WatchList>> getAll(){
+        return ResponseEntity.ok(watchListService.getAll());
+    }
 }

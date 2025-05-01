@@ -1,4 +1,4 @@
-package com.aeribmm.filmcritic.Model;
+package com.aeribmm.filmcritic.Model.Movie;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -41,21 +41,20 @@ public class Movie {
     private String poster;
 
     @Column(name = "rating_metascore")
-    private Integer ratingMetascore;
+    private String ratingMetascore;
 
     @Column(name = "rating_rot_tom", length = 4)
     private String ratingRotTom;
 
     @Column(name = "rating_imdb", precision = 3, scale = 1)
-    private BigDecimal ratingImdb;
+    private String ratingImdb;
 
     @Column(name = "type", length = 7)
     private String type;
 
     public Movie() {}
 
-    public Movie(String imdbId, String title, Integer year, LocalDate released, String runtime, String director, String plot,
-                 String country, String poster, Integer ratingMetascore, String ratingRotTom, BigDecimal ratingImdb, String type) {
+    public Movie(String imdbId, String title, Integer year, LocalDate released, String runtime, String director, String plot, String country, String poster, String ratingMetascore, String ratingRotTom, String ratingImdb, String type) {
         this.imdbId = imdbId;
         this.title = title;
         this.year = year;
@@ -143,11 +142,11 @@ public class Movie {
         this.poster = poster;
     }
 
-    public Integer getRatingMetascore() {
+    public String getRatingMetascore() {
         return ratingMetascore;
     }
 
-    public void setRatingMetascore(Integer ratingMetascore) {
+    public void setRatingMetascore(String ratingMetascore) {
         this.ratingMetascore = ratingMetascore;
     }
 
@@ -159,11 +158,11 @@ public class Movie {
         this.ratingRotTom = ratingRotTom;
     }
 
-    public BigDecimal getRatingImdb() {
+    public String getRatingImdb() {
         return ratingImdb;
     }
 
-    public void setRatingImdb(BigDecimal ratingImdb) {
+    public void setRatingImdb(String ratingImdb) {
         this.ratingImdb = ratingImdb;
     }
 
