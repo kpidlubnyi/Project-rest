@@ -34,4 +34,8 @@ public class MovieService {
                 .map(movie -> new MovieDTO(movie.getTitle(), movie.getPoster(),movie.getPlot()))
                 .getContent();
     }
+
+    public List<Movie> search(String keyword) {
+        return repository.findByTitleContainingIgnoreCase(keyword);
+    }
 }

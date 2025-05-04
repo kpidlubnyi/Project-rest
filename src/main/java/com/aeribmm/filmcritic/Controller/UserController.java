@@ -22,23 +22,18 @@ public class UserController {
     }
 
     @GetMapping("{id}")//status and exception done
-    public ResponseEntity<UserDTO> getUser(@PathVariable Integer id){
+    public ResponseEntity<UserDTO> getUserById(@PathVariable Integer id){
         User user = userService.getUserById(id);
         return ResponseEntity.ok(userService.convertToDTO(user));//status 200
     }
 
-    @GetMapping("/list")//status and exception done
-    public ResponseEntity<List<User>> getAll(){
+    @GetMapping()//status and exception done
+    public ResponseEntity<List<User>> getAllUsers(){
         return new ResponseEntity<>(userService.getAll(),HttpStatus.OK);
     }
-    @PostMapping("/create")//method is not using
-    public ResponseEntity<Void> createUser(@RequestBody User user){
-        userService.createUser(user);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
-    }
 
-    @DeleteMapping("/delete/{id}")//status and exception done
-    public ResponseEntity<Void> deleteById(@PathVariable Integer id) {
+    @DeleteMapping("/{id}")//status and exception done
+    public ResponseEntity<Void> deleteUserById(@PathVariable Integer id) {
         User user = userService.getUserById(id);
         if (user != null) {
             userService.deleteById(id);
@@ -56,7 +51,7 @@ public class UserController {
     //todo patch
 
     @GetMapping("/{username}/profile")
-    public ResponseEntity<UserProfileDTO> getProfile(@PathVariable String username){
+    public ResponseEntity<UserProfileDTO> getProfileByUsername(@PathVariable String username){
         System.out.println(username);
         return ResponseEntity.ok(userService.getUserProfile(username));
     }

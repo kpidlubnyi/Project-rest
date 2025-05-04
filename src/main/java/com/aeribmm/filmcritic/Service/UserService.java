@@ -7,7 +7,6 @@ import com.aeribmm.filmcritic.DAO.WatchListRepository;
 import com.aeribmm.filmcritic.Exception.userException.UserNotFoundException;
 import com.aeribmm.filmcritic.Model.UserModel.User;
 import com.aeribmm.filmcritic.Model.UserModel.UserDTO;
-//import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import com.aeribmm.filmcritic.Model.UserModel.UserProfileDTO;
 import com.aeribmm.filmcritic.Model.WatchListModel.WatchList;
 import com.aeribmm.filmcritic.Model.WatchListModel.WatchListStatus;

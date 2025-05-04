@@ -22,11 +22,11 @@ public class WatchListController {
         this.watchListService = service;
     }
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<List<WatchList>> getUserWatchlist(@PathVariable Integer userId) {
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<WatchList>> getWatchListByUser(@PathVariable Integer userId) {
         return ResponseEntity.ok(watchListService.getWatchlistByUserId(userId));
     }
-    @GetMapping("/getAll")
+    @GetMapping
     public ResponseEntity<List<WatchList>> getAll(){
         return ResponseEntity.ok(watchListService.getAll());
     }
