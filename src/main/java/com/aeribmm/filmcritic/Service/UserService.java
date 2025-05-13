@@ -5,6 +5,8 @@ import com.aeribmm.filmcritic.DAO.FilmRepositoryString;
 import com.aeribmm.filmcritic.DAO.UserRepository;
 import com.aeribmm.filmcritic.DAO.WatchListRepository;
 import com.aeribmm.filmcritic.Exception.userException.UserNotFoundException;
+import com.aeribmm.filmcritic.Model.Movie.MovieDTO;
+import com.aeribmm.filmcritic.Model.Movie.MovieProfile;
 import com.aeribmm.filmcritic.Model.UserModel.User;
 import com.aeribmm.filmcritic.Model.UserModel.UserDTO;
 import com.aeribmm.filmcritic.Model.UserModel.UserProfileDTO;
@@ -12,6 +14,7 @@ import com.aeribmm.filmcritic.Model.WatchListModel.WatchList;
 import com.aeribmm.filmcritic.Model.WatchListModel.WatchListStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -57,10 +60,26 @@ public class UserService {
         User user = repository.findByUsername(username).orElseThrow(() -> new UserNotFoundException());
         List<WatchList> viewed = watchListRepository.findByUserIdAndStatusNot(user.getId(), WatchListStatus.planned);
         List<WatchList> all = watchListRepository.findByUserId(user.getId());
+        List<MovieProfile> movies = new ArrayList<>();
+
+        for(WatchList item : viewed){
+            String id = item.getMovieId();
+            Movie film = filmRepository.findById(id).orElse(null);
+            if(film != null){
+                MovieProfile movie = new MovieProfile();
+                movie.setTitle(film.getTitle());
+                movie.setPosterURL(film.getPoster());
+                movie.setPlot(film.getPlot());
+                movie.setGenre(film.getGenre());
+                movie.setStatus(item.getStatus());
+                movies.add(movie);
+            }
+
+        }
         int totalViewed = viewed.size();
         double avgScore = calculateAvgScore(viewed);
         String timeSpend = calculateTimeSpend(viewed);
-        return new UserProfileDTO(user.getName(),user.getEmail(),totalViewed,avgScore,timeSpend,all);
+        return new UserProfileDTO(user.getName(),user.getEmail(),totalViewed,avgScore,timeSpend,movies);
     }
 
 

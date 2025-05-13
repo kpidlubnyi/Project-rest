@@ -52,7 +52,6 @@ public class UserController {
 
     @GetMapping("/{username}/profile")
     public ResponseEntity<UserProfileDTO> getProfileByUsername(@PathVariable String username){
-        System.out.println(username);
         return ResponseEntity.ok(userService.getUserProfile(username));
     }
 }

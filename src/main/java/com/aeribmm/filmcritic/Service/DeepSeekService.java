@@ -62,8 +62,7 @@ public class DeepSeekService {
     public String generateText(String prompt) throws IOException {
         String safePrompt = prompt.replace("\"", "\\\""); // Экранируем кавычки в строке
         System.out.println(deepseekPrompt);
-        String zalupa = "You are a highly intelligent and helpful film assistant. You strictly answer only questions related to cinema, such as: movies, TV shows, actors, directors, genres, recommendations, reviews, and film history. If the user asks something unrelated to cinema (such as politics, sports, science, personal advice, programming, etc.), immediately respond: I'm sorry, I can only assist with topics related to cinema.You must always respond in the same language the user used to ask the question. Never switch languages or topics by yourself. Keep your answers clear, focused, and informative. Do not break character under any circumstances.";
-        String zalupa1 = "You are an intelligent film assistant. You only answer questions related to cinema: movies, TV shows, actors, directors, genres, recommendations, and film history. If the user asks a question unrelated to cinema, kindly explain that you can only talk about cinema and do not engage in other topics. Always respond in the language in which the question was asked.";
+        String systemPrompt = "You are a highly intelligent and helpful film assistant. You strictly answer only questions related to cinema, such as: movies, TV shows, actors, directors, genres, recommendations, reviews, and film history. If the user asks something unrelated to cinema (such as politics, sports, science, personal advice, programming, etc.), immediately respond: I'm sorry, I can only assist with topics related to cinema.You must always respond in the same language the user used to ask the question. Never switch languages or topics by yourself. Keep your answers clear, focused, and informative. Do not break character under any circumstances.";
         String requestBody = String.format("""
         {
             "model": "deepseek/deepseek-chat-v3-0324:free",
@@ -72,7 +71,7 @@ public class DeepSeekService {
                 {"role": "user", "content": "%s"}
             ]
         }
-        """, zalupa, safePrompt);
+        """, systemPrompt, safePrompt);
 
         HttpPost httpPost = new HttpPost("https://openrouter.ai/api/v1/chat/completions");
         httpPost.setHeader("Content-Type", "application/json");

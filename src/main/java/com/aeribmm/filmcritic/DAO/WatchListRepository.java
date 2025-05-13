@@ -19,5 +19,6 @@ public interface WatchListRepository extends JpaRepository<WatchList,Integer> {
     List<WatchList> findByUserId(Integer userId);
 
     List<WatchList> findByUserIdAndStatusNot(Integer userId, WatchListStatus status);
+    WatchList findByUserIdAndMovieId(Integer userId,String movieId);
     }
 

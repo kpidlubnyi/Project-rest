@@ -1,5 +1,5 @@
 package com.aeribmm.filmcritic.Model.WatchListModel;
 
 public enum WatchListStatus {
-    planned, watching, completed,dropped;
+    planned, watching, completed,dropped,favourite;
 }

@@ -58,4 +58,8 @@ public class MovieController {
         }
         return ResponseEntity.ok(result);
     }
+    @GetMapping("/get5")
+    public ResponseEntity<List<MovieDTO>> get5(){
+        return ResponseEntity.ok(service.get5());
+    }
 }

@@ -1,29 +1,23 @@
 package com.aeribmm.filmcritic.Model.Movie;
 
-public class MovieDTO {
+import com.aeribmm.filmcritic.Model.WatchListModel.WatchListStatus;
+
+public class MovieProfile {
     private String title;
-    private String posterURL;
     private String plot;
+    private String posterURL;
     private String genre;
-    private Integer year;
+    private WatchListStatus status;
 
-    public MovieDTO() {
+    public MovieProfile() {
     }
 
-    public MovieDTO(String title, String posterURL, String plot, String genre, Integer year) {
+    public MovieProfile(String title, String plot, String posterURL, String genre, WatchListStatus status) {
         this.title = title;
-        this.posterURL = posterURL;
         this.plot = plot;
+        this.posterURL = posterURL;
         this.genre = genre;
-        this.year = year;
-    }
-
-    public Integer getYear() {
-        return year;
-    }
-
-    public void setYear(Integer year) {
-        this.year = year;
+        this.status = status;
     }
 
     public String getTitle() {
@@ -34,20 +28,20 @@ public class MovieDTO {
         this.title = title;
     }
 
-    public String getPosterURL() {
-        return posterURL;
-    }
-
-    public void setPosterURL(String posterURL) {
-        this.posterURL = posterURL;
-    }
-
     public String getPlot() {
         return plot;
     }
 
     public void setPlot(String plot) {
         this.plot = plot;
+    }
+
+    public String getPosterURL() {
+        return posterURL;
+    }
+
+    public void setPosterURL(String posterURL) {
+        this.posterURL = posterURL;
     }
 
     public String getGenre() {
@@ -58,14 +52,22 @@ public class MovieDTO {
         this.genre = genre;
     }
 
+    public WatchListStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(WatchListStatus status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
-        return "MovieDTO{" +
+        return "MovieProfile{" +
                 "title='" + title + '\'' +
-                ", posterURL='" + posterURL + '\'' +
                 ", plot='" + plot + '\'' +
+                ", posterURL='" + posterURL + '\'' +
                 ", genre='" + genre + '\'' +
-                ", year=" + year +
+                ", status=" + status +
                 '}';
     }
 }

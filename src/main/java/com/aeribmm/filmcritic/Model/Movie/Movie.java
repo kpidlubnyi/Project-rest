@@ -51,10 +51,12 @@ public class Movie {
 
     @Column(name = "type", length = 7)
     private String type;
+    @Column(name = "genre")
+    private String genre;
 
     public Movie() {}
 
-    public Movie(String imdbId, String title, Integer year, LocalDate released, String runtime, String director, String plot, String country, String poster, String ratingMetascore, String ratingRotTom, String ratingImdb, String type) {
+    public Movie(String imdbId, String title, Integer year, LocalDate released, String runtime, String director, String plot, String country, String poster, String ratingMetascore, String ratingRotTom, String ratingImdb, String type, String genre) {
         this.imdbId = imdbId;
         this.title = title;
         this.year = year;
@@ -68,6 +70,7 @@ public class Movie {
         this.ratingRotTom = ratingRotTom;
         this.ratingImdb = ratingImdb;
         this.type = type;
+        this.genre = genre;
     }
 
     public String getImdbId() {
@@ -172,5 +175,13 @@ public class Movie {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 }

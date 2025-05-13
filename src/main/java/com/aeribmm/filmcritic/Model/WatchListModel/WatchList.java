@@ -23,7 +23,6 @@ public class WatchList {
     private LocalDate createAt;
 
     public WatchList() {
-
     }
     public WatchList(Integer id, Integer userId, String movieId, WatchListStatus status, LocalDate createAt) {
         this.id = id;

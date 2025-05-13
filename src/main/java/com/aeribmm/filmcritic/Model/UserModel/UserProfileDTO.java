@@ -1,5 +1,7 @@
 package com.aeribmm.filmcritic.Model.UserModel;
 
+import com.aeribmm.filmcritic.Model.Movie.MovieDTO;
+import com.aeribmm.filmcritic.Model.Movie.MovieProfile;
 import com.aeribmm.filmcritic.Model.WatchListModel.WatchList;
 
 import java.util.List;
@@ -10,12 +12,12 @@ public class UserProfileDTO {
     private int totalViewed;
     private double averageScore;
     private String timeSpend;
-    private List<WatchList> list;
+    private List<MovieProfile> list;
 
     public UserProfileDTO() {
     }
 
-    public UserProfileDTO(String username, String email, int totalViewed, double averageScore, String timeSpend, List<WatchList> list) {
+    public UserProfileDTO(String username, String email, int totalViewed, double averageScore, String timeSpend, List<MovieProfile> list) {
         this.username = username;
         this.email = email;
         this.totalViewed = totalViewed;
@@ -64,11 +66,23 @@ public class UserProfileDTO {
         this.timeSpend = timeSpend;
     }
 
-    public List<WatchList> getList() {
+    public List<MovieProfile> getList() {
         return list;
     }
 
-    public void setList(List<WatchList> list) {
+    public void setList(List<MovieProfile> list) {
         this.list = list;
+    }
+
+    @Override
+    public String toString() {
+        return "UserProfileDTO{" +
+                "username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", totalViewed=" + totalViewed +
+                ", averageScore=" + averageScore +
+                ", timeSpend='" + timeSpend + '\'' +
+                ", list=" + list +
+                '}';
     }
 }

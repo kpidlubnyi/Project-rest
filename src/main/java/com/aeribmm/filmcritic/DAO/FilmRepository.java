@@ -23,4 +23,7 @@ public interface FilmRepository extends JpaRepository<Movie,Integer> {
 //    @Query("SELECT m  from Movie m WHERE LOWER(m.title) LIKE LOWER(CONCAT('%',:keyword,'%'))")
 //    List<Movie> search(@Param("keyword") String keyword);
     List<Movie> findByTitleContainingIgnoreCase(String keyword);
+    @Transactional
+    @Procedure(name =  "getFiveLastMovies")
+    List<Movie> getFiveLastMovies();
 }
