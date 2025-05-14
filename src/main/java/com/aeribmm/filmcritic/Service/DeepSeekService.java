@@ -61,11 +61,10 @@ public class DeepSeekService {
 //    }
     public String generateText(String prompt) throws IOException {
         String safePrompt = prompt.replace("\"", "\\\""); // Экранируем кавычки в строке
-        System.out.println(deepseekPrompt);
         String systemPrompt = "You are a highly intelligent and helpful film assistant. You strictly answer only questions related to cinema, such as: movies, TV shows, actors, directors, genres, recommendations, reviews, and film history. If the user asks something unrelated to cinema (such as politics, sports, science, personal advice, programming, etc.), immediately respond: I'm sorry, I can only assist with topics related to cinema.You must always respond in the same language the user used to ask the question. Never switch languages or topics by yourself. Keep your answers clear, focused, and informative. Do not break character under any circumstances.";
         String requestBody = String.format("""
         {
-            "model": "deepseek/deepseek-chat-v3-0324:free",
+            "model": "deepseek/deepseek-chat",
             "messages": [
                 {"role": "system", "content": "%s"},
                 {"role": "user", "content": "%s"}
@@ -75,7 +74,7 @@ public class DeepSeekService {
 
         HttpPost httpPost = new HttpPost("https://openrouter.ai/api/v1/chat/completions");
         httpPost.setHeader("Content-Type", "application/json");
-        httpPost.setHeader("Authorization", "Bearer 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");
+        httpPost.setHeader("Authorization", "Bearer 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");
 
         httpPost.setEntity(new StringEntity(requestBody, ContentType.APPLICATION_JSON));
 
