@@ -30,7 +30,7 @@ public class JWTServiceTest {
 
     @BeforeEach
     void setUp() {
-        secretKey = "testSecretKeyWithLength512BitsTestSecretKeyWithLength512BitsTestSecretKeyWithLength512Bits";
+        String secretKey = "testSecretKeyWithLength512BitsTestSecretKeyWithLength512BitsTestSecretKeyWithLength512Bits";
         ReflectionTestUtils.setField(jwtService, "SECRET_KEY", secretKey);
         
         userDetails = User.builder()
