@@ -1,24 +1,24 @@
 package com.aeribmm.filmcritic.Service;
-import com.aeribmm.filmcritic.Model.Movie.Movie;
-import com.aeribmm.filmcritic.DAO.FilmRepository;
-import com.aeribmm.filmcritic.DAO.FilmRepositoryString;
-import com.aeribmm.filmcritic.DAO.UserRepository;
-import com.aeribmm.filmcritic.DAO.WatchListRepository;
-import com.aeribmm.filmcritic.Exception.userException.UserNotFoundException;
-import com.aeribmm.filmcritic.Model.Movie.MovieDTO;
-import com.aeribmm.filmcritic.Model.Movie.MovieProfile;
-import com.aeribmm.filmcritic.Model.UserModel.User;
-import com.aeribmm.filmcritic.Model.UserModel.UserDTO;
-import com.aeribmm.filmcritic.Model.UserModel.UserProfileDTO;
-import com.aeribmm.filmcritic.Model.WatchListModel.WatchList;
-import com.aeribmm.filmcritic.Model.WatchListModel.WatchListStatus;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+
+import com.aeribmm.filmcritic.DAO.FilmRepositoryString;
+import com.aeribmm.filmcritic.DAO.UserRepository;
+import com.aeribmm.filmcritic.DAO.WatchListRepository;
+import com.aeribmm.filmcritic.Exception.userException.UserNotFoundException;
+import com.aeribmm.filmcritic.Model.Movie.Movie;
+import com.aeribmm.filmcritic.Model.Movie.MovieProfile;
+import com.aeribmm.filmcritic.Model.UserModel.User;
+import com.aeribmm.filmcritic.Model.UserModel.UserDTO;
+import com.aeribmm.filmcritic.Model.UserModel.UserProfileDTO;
+import com.aeribmm.filmcritic.Model.WatchListModel.WatchList;
+import com.aeribmm.filmcritic.Model.WatchListModel.WatchListStatus;
 
 @Service
 public class UserService {
@@ -59,7 +59,6 @@ public class UserService {
     public UserProfileDTO getUserProfile(String username) {
         User user = repository.findByUsername(username).orElseThrow(() -> new UserNotFoundException());
         List<WatchList> viewed = watchListRepository.findByUserIdAndStatusNot(user.getId(), WatchListStatus.planned);
-        List<WatchList> all = watchListRepository.findByUserId(user.getId());
         List<MovieProfile> movies = new ArrayList<>();
 
         for(WatchList item : viewed){
@@ -124,7 +123,7 @@ public class UserService {
                 .filter(Objects::nonNull)
                 .map(runtime -> {
                     try {
-                        return Integer.parseInt(runtime.replaceAll("\\D+", "")); // Извлекаем цифры из "142 min"
+                        return Integer.parseInt(runtime.replaceAll("\\D+", ""));
                     } catch (NumberFormatException e) {
                         return 0;
                     }

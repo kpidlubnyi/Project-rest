@@ -1,28 +1,27 @@
 package com.aeribmm.filmcritic.Controller;
 
-import com.aeribmm.filmcritic.Model.UserModel.User;
-import com.aeribmm.filmcritic.Model.UserModel.UserDTO;
-import com.aeribmm.filmcritic.Model.UserModel.UserProfileDTO;
-import com.aeribmm.filmcritic.Service.UserService;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
+import com.aeribmm.filmcritic.Model.UserModel.User;
+import com.aeribmm.filmcritic.Model.UserModel.UserDTO;
+import com.aeribmm.filmcritic.Model.UserModel.UserProfileDTO;
+import com.aeribmm.filmcritic.Service.UserService;
 
 @ExtendWith(MockitoExtension.class)
 public class UserControllerTest {

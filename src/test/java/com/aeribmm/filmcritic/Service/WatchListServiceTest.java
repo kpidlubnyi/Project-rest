@@ -1,5 +1,23 @@
 package com.aeribmm.filmcritic.Service;
 
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import org.mockito.junit.jupiter.MockitoExtension;
+
 import com.aeribmm.filmcritic.DAO.UserRepository;
 import com.aeribmm.filmcritic.DAO.WatchListRepository;
 import com.aeribmm.filmcritic.Exception.userException.UserNotFoundException;
@@ -7,23 +25,6 @@ import com.aeribmm.filmcritic.Model.UserModel.User;
 import com.aeribmm.filmcritic.Model.WatchListModel.WatchList;
 import com.aeribmm.filmcritic.Model.WatchListModel.WatchListRequest;
 import com.aeribmm.filmcritic.Model.WatchListModel.WatchListStatus;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class WatchListServiceTest {

@@ -1,23 +1,25 @@
 package com.aeribmm.filmcritic.Service.JWTTokens;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
+import java.util.ArrayList;
+import java.util.Date;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import java.util.ArrayList;
-import java.util.Date;
-
-import static org.junit.jupiter.api.Assertions.*;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 
 @ExtendWith(MockitoExtension.class)
 public class JWTServiceTest {
@@ -30,7 +32,7 @@ public class JWTServiceTest {
 
     @BeforeEach
     void setUp() {
-        String secretKey = "testSecretKeyWithLength512BitsTestSecretKeyWithLength512BitsTestSecretKeyWithLength512Bits";
+        secretKey = "c7cb75cfb15d4484ff7d823e2800e919081adc904347c90f74855823db20656b5879829ff0364d331ebc43a4576fd65da30773ba847378cebadc216094f87ae9";
         ReflectionTestUtils.setField(jwtService, "SECRET_KEY", secretKey);
         
         userDetails = User.builder()
@@ -43,7 +45,7 @@ public class JWTServiceTest {
     @Test
     void extractUsername_ShouldReturnUsername() {
         // Arrange
-        String token = createToken(userDetails.getUsername());
+        String token = jwtService.generateToken(userDetails);
 
         // Act
         String username = jwtService.extractUsername(token);
@@ -77,7 +79,13 @@ public class JWTServiceTest {
     @Test
     void isTokenValid_ShouldReturnFalse_ForExpiredToken() {
         // Arrange
-        String expiredToken = createExpiredToken(userDetails.getUsername());
+        // Create token with expiration in the past
+        String expiredToken = Jwts.builder()
+                .setSubject(userDetails.getUsername())
+                .setIssuedAt(new Date(System.currentTimeMillis() - 1000 * 60 * 60))
+                .setExpiration(new Date(System.currentTimeMillis() - 1000 * 60 * 30))
+                .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey)), SignatureAlgorithm.HS256)
+                .compact();
 
         // Act
         boolean isValid = jwtService.isTokenValid(expiredToken, userDetails);
@@ -89,30 +97,18 @@ public class JWTServiceTest {
     @Test
     void isTokenValid_ShouldReturnFalse_ForTokenWithDifferentUsername() {
         // Arrange
-        String token = createToken("differentemail@example.com");
+        // Create token for different user
+        String token = Jwts.builder()
+                .setSubject("differentemail@example.com")
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
+                .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey)), SignatureAlgorithm.HS256)
+                .compact();
 
         // Act
         boolean isValid = jwtService.isTokenValid(token, userDetails);
 
         // Assert
         assertFalse(isValid);
-    }
-
-    private String createToken(String subject) {
-        return Jwts.builder()
-                .setSubject(subject)
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
-                .signWith(Keys.hmacShaKeyFor(secretKey.getBytes()), SignatureAlgorithm.HS256)
-                .compact();
-    }
-
-    private String createExpiredToken(String subject) {
-        return Jwts.builder()
-                .setSubject(subject)
-                .setIssuedAt(new Date(System.currentTimeMillis() - 1000 * 60 * 60))
-                .setExpiration(new Date(System.currentTimeMillis() - 1000 * 60 * 30))
-                .signWith(Keys.hmacShaKeyFor(secretKey.getBytes()), SignatureAlgorithm.HS256)
-                .compact();
     }
 }
