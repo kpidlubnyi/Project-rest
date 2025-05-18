@@ -1,12 +1,13 @@
 package com.aeribmm.filmcritic.Model.UserModel;
 
+import java.util.Collection;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.core.GrantedAuthority;
-
-import java.util.Collection;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class UserTest {
 
@@ -23,23 +24,19 @@ public class UserTest {
 
     @Test
     void constructorAndGettersSetters_ShouldWorkCorrectly() {
-        // Act - using setter methods
         user.setId(ID);
         user.setUsername(USERNAME);
         user.setEmail(EMAIL);
         user.setPassword(PASSWORD);
 
-        // Assert - using getter methods
         assertEquals(ID, user.getId());
         assertEquals(USERNAME, user.getName());
         assertEquals(EMAIL, user.getEmail());
         assertEquals(PASSWORD, user.getPassword());
-        assertEquals(EMAIL, user.getUsername()); // username returns email for Spring Security
+        assertEquals(EMAIL, user.getUsername());
 
-        // Act - using parameterized constructor
         User paramUser = new User(ID, USERNAME, EMAIL, PASSWORD);
 
-        // Assert - for constructor initialized object
         assertNotNull(paramUser);
         assertEquals(ID, paramUser.getId());
         assertEquals(USERNAME, paramUser.getName());
@@ -49,7 +46,6 @@ public class UserTest {
 
     @Test
     void builder_ShouldCreateUserCorrectly() {
-        // Act
         User builtUser = User.builder()
                 .id(ID)
                 .username(USERNAME)
@@ -57,7 +53,6 @@ public class UserTest {
                 .password(PASSWORD)
                 .build();
 
-        // Assert
         assertNotNull(builtUser);
         assertEquals(ID, builtUser.getId());
         assertEquals(USERNAME, builtUser.getName());
@@ -67,16 +62,14 @@ public class UserTest {
 
     @Test
     void userDetails_ShouldReturnCorrectValues() {
-        // Arrange
         user.setId(ID);
         user.setUsername(USERNAME);
         user.setEmail(EMAIL);
         user.setPassword(PASSWORD);
 
-        // Act & Assert
         Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
         assertTrue(authorities.isEmpty());
-        assertEquals(EMAIL, user.getUsername()); // getUsername returns email
+        assertEquals(EMAIL, user.getUsername());
         assertTrue(user.isAccountNonExpired());
         assertTrue(user.isAccountNonLocked());
         assertTrue(user.isCredentialsNonExpired());

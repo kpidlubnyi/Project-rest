@@ -1,12 +1,11 @@
 package com.aeribmm.filmcritic.Model.Movie;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class MovieTest {
 
@@ -33,7 +32,6 @@ public class MovieTest {
 
     @Test
     void constructorAndGettersSetters_ShouldWorkCorrectly() {
-        // Act - using setter methods
         movie.setImdbId(IMDB_ID);
         movie.setTitle(TITLE);
         movie.setYear(YEAR);
@@ -49,7 +47,6 @@ public class MovieTest {
         movie.setType(TYPE);
         movie.setGenre(GENRE);
 
-        // Assert - using getter methods
         assertEquals(IMDB_ID, movie.getImdbId());
         assertEquals(TITLE, movie.getTitle());
         assertEquals(YEAR, movie.getYear());
@@ -65,13 +62,11 @@ public class MovieTest {
         assertEquals(TYPE, movie.getType());
         assertEquals(GENRE, movie.getGenre());
 
-        // Act - using parameterized constructor
         Movie paramMovie = new Movie(
             IMDB_ID, TITLE, YEAR, RELEASED, RUNTIME, DIRECTOR, PLOT, COUNTRY,
             POSTER, RATING_METASCORE, RATING_ROT_TOM, RATING_IMDB, TYPE, GENRE
         );
 
-        // Assert - for constructor initialized object
         assertNotNull(paramMovie);
         assertEquals(IMDB_ID, paramMovie.getImdbId());
         assertEquals(TITLE, paramMovie.getTitle());

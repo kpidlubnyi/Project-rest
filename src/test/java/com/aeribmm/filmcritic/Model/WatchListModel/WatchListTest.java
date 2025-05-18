@@ -1,13 +1,12 @@
 package com.aeribmm.filmcritic.Model.WatchListModel;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class WatchListTest {
 
@@ -25,24 +24,20 @@ public class WatchListTest {
 
     @Test
     void constructorAndGettersSetters_ShouldWorkCorrectly() {
-        // Act - using setter methods
         watchList.setId(ID);
         watchList.setUserId(USER_ID);
         watchList.setMovieId(MOVIE_ID);
         watchList.setStatus(STATUS);
         watchList.setCreateAt(CREATE_AT);
 
-        // Assert - using getter methods
         assertEquals(ID, watchList.getId());
         assertEquals(USER_ID, watchList.getUserId());
         assertEquals(MOVIE_ID, watchList.getMovieId());
         assertEquals(STATUS, watchList.getStatus());
         assertEquals(CREATE_AT, watchList.getCreateAt());
 
-        // Act - using parameterized constructor
         WatchList paramWatchList = new WatchList(ID, USER_ID, MOVIE_ID, STATUS, CREATE_AT);
 
-        // Assert - for constructor initialized object
         assertNotNull(paramWatchList);
         assertEquals(ID, paramWatchList.getId());
         assertEquals(USER_ID, paramWatchList.getUserId());
@@ -53,17 +48,14 @@ public class WatchListTest {
 
     @Test
     void toString_ShouldReturnStringRepresentation() {
-        // Arrange
         watchList.setId(ID);
         watchList.setUserId(USER_ID);
         watchList.setMovieId(MOVIE_ID);
         watchList.setStatus(STATUS);
         watchList.setCreateAt(CREATE_AT);
 
-        // Act
         String toString = watchList.toString();
 
-        // Assert
         assertNotNull(toString);
         assertTrue(toString.contains(ID.toString()));
         assertTrue(toString.contains(USER_ID.toString()));

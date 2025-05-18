@@ -1,28 +1,31 @@
 package com.aeribmm.filmcritic.Controller;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
 import com.aeribmm.filmcritic.Exception.MovieException.MovieNotFoundException;
 import com.aeribmm.filmcritic.Model.Movie.Movie;
 import com.aeribmm.filmcritic.Model.Movie.MovieDTO;
 import com.aeribmm.filmcritic.Model.omdbApi.MovieResponse;
 import com.aeribmm.filmcritic.Service.MovieService;
 import com.aeribmm.filmcritic.Service.OmdbService;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class MovieControllerTest {
@@ -64,13 +67,10 @@ public class MovieControllerTest {
 
     @Test
     void getMovieById_ShouldReturnMovie_WhenMovieExists() {
-        // Arrange
         when(movieService.getMovie(anyString())).thenReturn(testMovie);
 
-        // Act
         ResponseEntity<Movie> response = movieController.getMovieById("tt1234567");
 
-        // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(testMovie, response.getBody());
         verify(movieService).getMovie("tt1234567");
@@ -78,23 +78,18 @@ public class MovieControllerTest {
 
     @Test
     void getMovieById_ShouldThrowException_WhenMovieDoesNotExist() {
-        // Arrange
         when(movieService.getMovie(anyString())).thenReturn(null);
 
-        // Act & Assert
         assertThrows(MovieNotFoundException.class, () -> movieController.getMovieById("nonexistent"));
         verify(movieService).getMovie("nonexistent");
     }
 
     @Test
     void getMovieByTitle_ShouldReturnMovieResponse() {
-        // Arrange
         when(omdbService.getMovieByTitle(anyString())).thenReturn(testMovieResponse);
 
-        // Act
         ResponseEntity<MovieResponse> response = movieController.getMovieByTitle("Test Movie");
 
-        // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(testMovieResponse, response.getBody());
         verify(omdbService).getMovieByTitle("Test Movie");
@@ -102,13 +97,10 @@ public class MovieControllerTest {
 
     @Test
     void randomMovieFromAPI_ShouldReturnRandomMovie() {
-        // Arrange
         when(omdbService.getRandomMovie()).thenReturn(testMovieResponse);
 
-        // Act
         ResponseEntity<MovieResponse> response = movieController.randomMovieFromAPI();
 
-        // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(testMovieResponse, response.getBody());
         verify(omdbService).getRandomMovie();
@@ -116,13 +108,10 @@ public class MovieControllerTest {
 
     @Test
     void getRandomMovie_ShouldReturnRandomMovie() {
-        // Arrange
         when(movieService.random()).thenReturn(testMovie);
 
-        // Act
         ResponseEntity<Movie> response = movieController.getRandomMovie();
 
-        // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(testMovie, response.getBody());
         verify(movieService).random();
@@ -130,14 +119,11 @@ public class MovieControllerTest {
 
     @Test
     void getAllMovies_ShouldReturnAllMovies() {
-        // Arrange
         List<MovieDTO> movies = Arrays.asList(testMovieDTO, testMovieDTO);
         when(movieService.getAll(anyInt())).thenReturn(movies);
 
-        // Act
         ResponseEntity<List<MovieDTO>> response = movieController.getAllMovies(40);
 
-        // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(2, response.getBody().size());
         verify(movieService).getAll(40);
@@ -145,14 +131,11 @@ public class MovieControllerTest {
 
     @Test
     void searchMovies_ShouldReturnMatchingMovies() {
-        // Arrange
         List<Movie> movies = Arrays.asList(testMovie);
         when(movieService.search(anyString())).thenReturn(movies);
 
-        // Act
         ResponseEntity<List<Movie>> response = movieController.searchMovies("Test");
 
-        // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(1, response.getBody().size());
         verify(movieService).search("Test");
@@ -160,13 +143,10 @@ public class MovieControllerTest {
 
     @Test
     void searchMovies_ShouldReturn404_WhenNoMoviesFound() {
-        // Arrange
         when(movieService.search(anyString())).thenReturn(Collections.emptyList());
 
-        // Act
         ResponseEntity<List<Movie>> response = movieController.searchMovies("NonExistent");
 
-        // Assert
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
         assertNull(response.getBody());
         verify(movieService).search("NonExistent");
@@ -174,14 +154,11 @@ public class MovieControllerTest {
 
     @Test
     void get5_ShouldReturn5Movies() {
-        // Arrange
         List<MovieDTO> movies = Arrays.asList(testMovieDTO, testMovieDTO, testMovieDTO, testMovieDTO, testMovieDTO);
         when(movieService.get5()).thenReturn(movies);
 
-        // Act
         ResponseEntity<List<MovieDTO>> response = movieController.get5();
 
-        // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(5, response.getBody().size());
         verify(movieService).get5();

@@ -44,42 +44,32 @@ public class JWTServiceTest {
 
     @Test
     void extractUsername_ShouldReturnUsername() {
-        // Arrange
         String token = jwtService.generateToken(userDetails);
 
-        // Act
         String username = jwtService.extractUsername(token);
 
-        // Assert
         assertEquals(userDetails.getUsername(), username);
     }
 
     @Test
     void generateToken_ShouldGenerateValidToken() {
-        // Act
         String token = jwtService.generateToken(userDetails);
 
-        // Assert
         assertNotNull(token);
         assertEquals(userDetails.getUsername(), jwtService.extractUsername(token));
     }
 
     @Test
     void isTokenValid_ShouldReturnTrue_ForValidToken() {
-        // Arrange
         String token = jwtService.generateToken(userDetails);
 
-        // Act
         boolean isValid = jwtService.isTokenValid(token, userDetails);
 
-        // Assert
         assertTrue(isValid);
     }
 
     @Test
     void isTokenValid_ShouldReturnFalse_ForExpiredToken() {
-        // Arrange
-        // Create token with expiration in the past
         String expiredToken = Jwts.builder()
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis() - 1000 * 60 * 60))
@@ -87,17 +77,13 @@ public class JWTServiceTest {
                 .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey)), SignatureAlgorithm.HS256)
                 .compact();
 
-        // Act
         boolean isValid = jwtService.isTokenValid(expiredToken, userDetails);
 
-        // Assert
         assertFalse(isValid);
     }
 
     @Test
     void isTokenValid_ShouldReturnFalse_ForTokenWithDifferentUsername() {
-        // Arrange
-        // Create token for different user
         String token = Jwts.builder()
                 .setSubject("differentemail@example.com")
                 .setIssuedAt(new Date(System.currentTimeMillis()))
@@ -105,10 +91,8 @@ public class JWTServiceTest {
                 .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey)), SignatureAlgorithm.HS256)
                 .compact();
 
-        // Act
         boolean isValid = jwtService.isTokenValid(token, userDetails);
 
-        // Assert
         assertFalse(isValid);
     }
 }

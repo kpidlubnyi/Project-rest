@@ -55,14 +55,11 @@ public class UserControllerTest {
 
     @Test
     void getUserById_ShouldReturnUser() {
-        // Arrange
         when(userService.getUserById(anyInt())).thenReturn(testUser);
         when(userService.convertToDTO(any(User.class))).thenReturn(testUserDTO);
 
-        // Act
         ResponseEntity<UserDTO> response = userController.getUserById(1);
 
-        // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(testUserDTO, response.getBody());
         verify(userService).getUserById(1);
@@ -71,14 +68,11 @@ public class UserControllerTest {
 
     @Test
     void getAllUsers_ShouldReturnAllUsers() {
-        // Arrange
         List<User> users = Arrays.asList(testUser);
         when(userService.getAll()).thenReturn(users);
 
-        // Act
         ResponseEntity<List<User>> response = userController.getAllUsers();
 
-        // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(1, response.getBody().size());
         assertEquals(testUser, response.getBody().get(0));
@@ -87,13 +81,10 @@ public class UserControllerTest {
 
     @Test
     void deleteUserById_ShouldDeleteUser_WhenUserExists() {
-        // Arrange
         when(userService.getUserById(anyInt())).thenReturn(testUser);
 
-        // Act
         ResponseEntity<Void> response = userController.deleteUserById(1);
 
-        // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
         verify(userService).getUserById(1);
         verify(userService).deleteById(1);
@@ -101,26 +92,20 @@ public class UserControllerTest {
 
     @Test
     void deleteUserById_ShouldReturnNotFound_WhenUserDoesNotExist() {
-        // Arrange
         when(userService.getUserById(anyInt())).thenReturn(null);
 
-        // Act
         ResponseEntity<Void> response = userController.deleteUserById(1);
 
-        // Assert
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
         verify(userService).getUserById(1);
     }
 
     @Test
     void updateUser_ShouldUpdateExistingUser() {
-        // Arrange
         when(userService.getUserById(anyInt())).thenReturn(testUser);
 
-        // Act
         ResponseEntity<User> response = userController.updateUser(1, testUser);
 
-        // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(1, response.getBody().getId());
         verify(userService).getUserById(1);
@@ -129,13 +114,10 @@ public class UserControllerTest {
 
     @Test
     void getProfileByUsername_ShouldReturnUserProfile() {
-        // Arrange
         when(userService.getUserProfile(anyString())).thenReturn(testUserProfileDTO);
 
-        // Act
         ResponseEntity<UserProfileDTO> response = userController.getProfileByUsername("testUser");
 
-        // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(testUserProfileDTO, response.getBody());
         verify(userService).getUserProfile("testUser");

@@ -63,14 +63,11 @@ public class WatchListServiceTest {
 
     @Test
     void getWatchlistByUserId_ShouldReturnWatchlist() {
-        // Arrange
         when(userRepository.findById(anyInt())).thenReturn(Optional.of(testUser));
         when(watchListRepository.getWatchlistByUserId(anyInt())).thenReturn(Arrays.asList(testWatchList));
 
-        // Act
         List<WatchList> result = watchListService.getWatchlistByUserId(1);
 
-        // Assert
         assertEquals(1, result.size());
         assertEquals(testWatchList, result.get(0));
         verify(userRepository).findById(1);
@@ -79,23 +76,18 @@ public class WatchListServiceTest {
 
     @Test
     void getWatchlistByUserId_ShouldThrowException_WhenUserDoesNotExist() {
-        // Arrange
         when(userRepository.findById(anyInt())).thenReturn(Optional.empty());
 
-        // Act & Assert
         assertThrows(UserNotFoundException.class, () -> watchListService.getWatchlistByUserId(1));
         verify(userRepository).findById(1);
     }
 
     @Test
     void getAll_ShouldReturnAllWatchlists() {
-        // Arrange
         when(watchListRepository.findAll()).thenReturn(Arrays.asList(testWatchList));
 
-        // Act
         List<WatchList> result = watchListService.getAll();
 
-        // Assert
         assertEquals(1, result.size());
         assertEquals(testWatchList, result.get(0));
         verify(watchListRepository).findAll();
@@ -103,13 +95,10 @@ public class WatchListServiceTest {
 
     @Test
     void addMovieToWatchList_ShouldUpdateExistingEntry_WhenAlreadyExists() {
-        // Arrange
         when(watchListRepository.findByUserIdAndMovieId(anyInt(), any())).thenReturn(testWatchList);
 
-        // Act
         watchListService.addMovieToWatchList(testRequest);
 
-        // Assert
         assertEquals(WatchListStatus.watching, testWatchList.getStatus());
         verify(watchListRepository).findByUserIdAndMovieId(1, "tt1234567");
         verify(watchListRepository).save(testWatchList);
@@ -117,13 +106,10 @@ public class WatchListServiceTest {
 
     @Test
     void addMovieToWatchList_ShouldCreateNewEntry_WhenDoesNotExist() {
-        // Arrange
         when(watchListRepository.findByUserIdAndMovieId(anyInt(), any())).thenReturn(null);
 
-        // Act
         watchListService.addMovieToWatchList(testRequest);
 
-        // Assert
         verify(watchListRepository).findByUserIdAndMovieId(1, "tt1234567");
         verify(watchListRepository).save(any(WatchList.class));
     }

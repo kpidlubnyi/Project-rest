@@ -43,19 +43,14 @@ public class OmdbServiceTest {
 
     @Test
     void getMovieByTitle_ShouldReturnMovieResponse() {
-        // Arrange
         String title = "The Wizard of Oz";
         
-        // Użyj ArgumentMatchers.anyString() zamiast konkretnego URL
         when(restTemplate.getForObject(anyString(), eq(MovieResponse.class))).thenReturn(testMovieResponse);
         
-        // Act
         MovieResponse result = omdbService.getMovieByTitle(title);
         
-        // Assert
         assertNotNull(result);
         
-        // Porównaj pola zamiast całych obiektów
         assertEquals(testMovieResponse.getImdbId(), result.getImdbId());
         assertEquals(testMovieResponse.getTitle(), result.getTitle());
         assertEquals(testMovieResponse.getYear(), result.getYear());
